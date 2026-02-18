@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DateMath – Kalkulator Tanggal</title>
+    <meta name="description"
+        content="DateMath adalah kalkulator tanggal canggih. Hitung tanggal sebelum atau sesudah hari tertentu dengan mudah dan cepat." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Background particles -->
+    <div class="bg-particles" aria-hidden="true">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+    </div>
+
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="4" width="24" height="22" rx="4" stroke="url(#grad1)" stroke-width="2" />
+                        <path d="M2 10H26" stroke="url(#grad1)" stroke-width="2" />
+                        <rect x="8" y="2" width="3" height="5" rx="1.5" fill="url(#grad1)" />
+                        <rect x="17" y="2" width="3" height="5" rx="1.5" fill="url(#grad1)" />
+                        <circle cx="9" cy="17" r="1.5" fill="url(#grad1)" />
+                        <circle cx="14" cy="17" r="1.5" fill="url(#grad1)" />
+                        <circle cx="19" cy="17" r="1.5" fill="url(#grad1)" />
+                        <defs>
+                            <linearGradient id="grad1" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#a78bfa" />
+                                <stop offset="1" stop-color="#60a5fa" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Date<span class="logo-accent">Math</span></span>
+            </div>
+            <p class="header-tagline">Kalkulator Tanggal Cerdas</p>
+        </header>
+
+        <!-- Main Card -->
+        <main class="main-content">
+            <div class="card glass-card">
+                <div class="card-header">
+                    <h1 class="card-title">Hitung Tanggal</h1>
+                    <p class="card-subtitle">Masukkan tanggal awal, pilih arah, dan jumlah hari</p>
+                </div>
+
+                <form id="dateForm" class="form" novalidate>
+                    <!-- Date Input -->
+                    <div class="form-group">
+                        <label class="form-label" for="startDate">
+                            <span class="label-icon">📅</span>
+                            Tanggal Awal
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="date" id="startDate" name="startDate" class="form-input" required
+                                aria-required="true" />
+                        </div>
+                    </div>
+
+                    <!-- Direction Toggle -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="label-icon">🔀</span>
+                            Arah Perhitungan
+                        </label>
+                        <div class="toggle-group" role="radiogroup" aria-label="Arah perhitungan">
+                            <button type="button" class="toggle-btn active" id="btnAfter" role="radio"
+                                aria-checked="true" data-value="after">
+                                <span class="toggle-icon">➕</span>
+                                Setelah
+                            </button>
+                            <button type="button" class="toggle-btn" id="btnBefore" role="radio" aria-checked="false"
+                                data-value="before">
+                                <span class="toggle-icon">➖</span>
+                                Sebelum
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Days Input -->
+                    <div class="form-group">
+                        <label class="form-label" for="daysInput">
+                            <span class="label-icon">🔢</span>
+                            Jumlah Hari
+                        </label>
+                        <div class="input-wrapper days-wrapper">
+                            <button type="button" class="stepper-btn" id="decrementBtn"
+                                aria-label="Kurangi hari">−</button>
+                            <input type="number" id="daysInput" name="daysInput" class="form-input days-input" min="0"
+                                max="99999" value="7" placeholder="0" required aria-required="true"
+                                aria-label="Jumlah hari" />
+                            <button type="button" class="stepper-btn" id="incrementBtn"
+                                aria-label="Tambah hari">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-calculate" id="calculateBtn">
+                        <span class="btn-text">Hitung Sekarang</span>
+                        <span class="btn-icon" aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <!-- Result Section -->
+                <div class="result-section" id="resultSection" aria-live="polite" aria-atomic="true">
+                    <div class="result-divider">
+                        <span class="divider-text">Hasil</span>
+                    </div>
+                    <div class="result-card" id="resultCard">
+                        <div class="result-badge" id="resultBadge"></div>
+                        <div class="result-date" id="resultDate"></div>
+                        <div class="result-day" id="resultDay"></div>
+                        <div class="result-detail" id="resultDetail"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="presets-section">
+                <p class="presets-label">Preset Cepat</p>
+                <div class="presets-grid">
+                    <button class="preset-btn" data-days="7" aria-label="7 hari">7 Hari</button>
+                    <button class="preset-btn" data-days="14" aria-label="14 hari">14 Hari</button>
+                    <button class="preset-btn" data-days="30" aria-label="30 hari">30 Hari</button>
+                    <button class="preset-btn" data-days="90" aria-label="90 hari">90 Hari</button>
+                    <button class="preset-btn" data-days="180" aria-label="180 hari">180 Hari</button>
+                    <button class="preset-btn" data-days="365" aria-label="365 hari">1 Tahun</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 DateMath · Dzaki Salman</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
