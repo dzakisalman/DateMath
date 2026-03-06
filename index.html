@@ -51,97 +51,160 @@
             <p class="header-tagline">Kalkulator Tanggal Cerdas</p>
         </header>
 
-        <!-- Main Card -->
+        <!-- Main Content -->
         <main class="main-content">
-            <div class="card glass-card">
-                <div class="card-header">
-                    <h1 class="card-title">Hitung Tanggal</h1>
-                    <p class="card-subtitle">Masukkan tanggal awal, pilih arah, dan jumlah hari</p>
+
+            <!-- Tab Switcher -->
+            <div class="tab-switcher" role="tablist" aria-label="Pilih fitur">
+                <button class="tab-btn active" id="tab1" role="tab" aria-selected="true" aria-controls="panel1">
+                    <span class="tab-icon">➕</span>
+                    Hitung Tanggal
+                </button>
+                <button class="tab-btn" id="tab2" role="tab" aria-selected="false" aria-controls="panel2">
+                    <span class="tab-icon">⏳</span>
+                    Hari Lagi / Lalu
+                </button>
+            </div>
+
+            <!-- ───── PANEL 1: Date Calculator ───── -->
+            <div id="panel1" role="tabpanel" aria-labelledby="tab1">
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h1 class="card-title">Hitung Tanggal</h1>
+                        <p class="card-subtitle">Masukkan tanggal awal, pilih arah, dan jumlah hari</p>
+                    </div>
+
+                    <form id="dateForm" class="form" novalidate>
+                        <!-- Date Input -->
+                        <div class="form-group">
+                            <label class="form-label" for="startDate">
+                                <span class="label-icon">📅</span>
+                                Tanggal Awal
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="date" id="startDate" name="startDate" class="form-input" required
+                                    aria-required="true" />
+                            </div>
+                        </div>
+
+                        <!-- Direction Toggle -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span class="label-icon">🔀</span>
+                                Arah Perhitungan
+                            </label>
+                            <div class="toggle-group" role="radiogroup" aria-label="Arah perhitungan">
+                                <button type="button" class="toggle-btn active" id="btnAfter" role="radio"
+                                    aria-checked="true" data-value="after">
+                                    <span class="toggle-icon">➕</span>
+                                    Setelah
+                                </button>
+                                <button type="button" class="toggle-btn" id="btnBefore" role="radio"
+                                    aria-checked="false" data-value="before">
+                                    <span class="toggle-icon">➖</span>
+                                    Sebelum
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Days Input -->
+                        <div class="form-group">
+                            <label class="form-label" for="daysInput">
+                                <span class="label-icon">🔢</span>
+                                Jumlah Hari
+                            </label>
+                            <div class="input-wrapper days-wrapper">
+                                <button type="button" class="stepper-btn" id="decrementBtn"
+                                    aria-label="Kurangi hari">−</button>
+                                <input type="number" id="daysInput" name="daysInput" class="form-input days-input"
+                                    min="0" max="99999" value="7" placeholder="0" required aria-required="true"
+                                    aria-label="Jumlah hari" />
+                                <button type="button" class="stepper-btn" id="incrementBtn"
+                                    aria-label="Tambah hari">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-calculate" id="calculateBtn">
+                            <span class="btn-text">Hitung Sekarang</span>
+                            <span class="btn-icon" aria-hidden="true">→</span>
+                        </button>
+                    </form>
+
+                    <!-- Result Section -->
+                    <div class="result-section" id="resultSection" aria-live="polite" aria-atomic="true">
+                        <div class="result-divider">
+                            <span class="divider-text">Hasil</span>
+                        </div>
+                        <div class="result-card" id="resultCard">
+                            <div class="result-badge" id="resultBadge"></div>
+                            <div class="result-date" id="resultDate"></div>
+                            <div class="result-day" id="resultDay"></div>
+                            <div class="result-detail" id="resultDetail"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <form id="dateForm" class="form" novalidate>
-                    <!-- Date Input -->
-                    <div class="form-group">
-                        <label class="form-label" for="startDate">
-                            <span class="label-icon">📅</span>
-                            Tanggal Awal
-                        </label>
-                        <div class="input-wrapper">
-                            <input type="date" id="startDate" name="startDate" class="form-input" required
-                                aria-required="true" />
-                        </div>
-                    </div>
-
-                    <!-- Direction Toggle -->
-                    <div class="form-group">
-                        <label class="form-label">
-                            <span class="label-icon">🔀</span>
-                            Arah Perhitungan
-                        </label>
-                        <div class="toggle-group" role="radiogroup" aria-label="Arah perhitungan">
-                            <button type="button" class="toggle-btn active" id="btnAfter" role="radio"
-                                aria-checked="true" data-value="after">
-                                <span class="toggle-icon">➕</span>
-                                Setelah
-                            </button>
-                            <button type="button" class="toggle-btn" id="btnBefore" role="radio" aria-checked="false"
-                                data-value="before">
-                                <span class="toggle-icon">➖</span>
-                                Sebelum
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Days Input -->
-                    <div class="form-group">
-                        <label class="form-label" for="daysInput">
-                            <span class="label-icon">🔢</span>
-                            Jumlah Hari
-                        </label>
-                        <div class="input-wrapper days-wrapper">
-                            <button type="button" class="stepper-btn" id="decrementBtn"
-                                aria-label="Kurangi hari">−</button>
-                            <input type="number" id="daysInput" name="daysInput" class="form-input days-input" min="0"
-                                max="99999" value="7" placeholder="0" required aria-required="true"
-                                aria-label="Jumlah hari" />
-                            <button type="button" class="stepper-btn" id="incrementBtn"
-                                aria-label="Tambah hari">+</button>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn-calculate" id="calculateBtn">
-                        <span class="btn-text">Hitung Sekarang</span>
-                        <span class="btn-icon" aria-hidden="true">→</span>
-                    </button>
-                </form>
-
-                <!-- Result Section -->
-                <div class="result-section" id="resultSection" aria-live="polite" aria-atomic="true">
-                    <div class="result-divider">
-                        <span class="divider-text">Hasil</span>
-                    </div>
-                    <div class="result-card" id="resultCard">
-                        <div class="result-badge" id="resultBadge"></div>
-                        <div class="result-date" id="resultDate"></div>
-                        <div class="result-day" id="resultDay"></div>
-                        <div class="result-detail" id="resultDetail"></div>
+                <!-- Quick Presets -->
+                <div class="presets-section">
+                    <p class="presets-label">Preset Cepat</p>
+                    <div class="presets-grid">
+                        <button class="preset-btn" data-days="7" aria-label="7 hari">7 Hari</button>
+                        <button class="preset-btn" data-days="14" aria-label="14 hari">14 Hari</button>
+                        <button class="preset-btn" data-days="30" aria-label="30 hari">30 Hari</button>
+                        <button class="preset-btn" data-days="90" aria-label="90 hari">90 Hari</button>
+                        <button class="preset-btn" data-days="180" aria-label="180 hari">180 Hari</button>
+                        <button class="preset-btn" data-days="365" aria-label="365 hari">1 Tahun</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Presets -->
-            <div class="presets-section">
-                <p class="presets-label">Preset Cepat</p>
-                <div class="presets-grid">
-                    <button class="preset-btn" data-days="7" aria-label="7 hari">7 Hari</button>
-                    <button class="preset-btn" data-days="14" aria-label="14 hari">14 Hari</button>
-                    <button class="preset-btn" data-days="30" aria-label="30 hari">30 Hari</button>
-                    <button class="preset-btn" data-days="90" aria-label="90 hari">90 Hari</button>
-                    <button class="preset-btn" data-days="180" aria-label="180 hari">180 Hari</button>
-                    <button class="preset-btn" data-days="365" aria-label="365 hari">1 Tahun</button>
+            <!-- ───── PANEL 2: Days From Today ───── -->
+            <div id="panel2" role="tabpanel" aria-labelledby="tab2" hidden>
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Hari Lagi / Lalu</h2>
+                        <p class="card-subtitle">Masukkan tanggal untuk tahu berapa hari dari sekarang</p>
+                    </div>
+
+                    <form id="dftForm" class="form" novalidate>
+                        <!-- Target Date Input -->
+                        <div class="form-group">
+                            <label class="form-label" for="targetDate">
+                                <span class="label-icon">🎯</span>
+                                Tanggal Target
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="date" id="targetDate" name="targetDate" class="form-input" required
+                                    aria-required="true" />
+                            </div>
+                        </div>
+
+                        <!-- Today info chip -->
+                        <div class="today-chip" id="todayChip" aria-live="polite"></div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-calculate btn-teal" id="dftBtn">
+                            <span class="btn-text">Cek Sekarang</span>
+                            <span class="btn-icon" aria-hidden="true">→</span>
+                        </button>
+                    </form>
+
+                    <!-- DFT Result Section -->
+                    <div class="result-section" id="dftResultSection" aria-live="polite" aria-atomic="true">
+                        <div class="result-divider">
+                            <span class="divider-text">Hasil</span>
+                        </div>
+                        <div class="result-card dft-result-card" id="dftResultCard">
+                            <div class="dft-big-number" id="dftBigNumber"></div>
+                            <div class="dft-label" id="dftLabel"></div>
+                            <div class="dft-sub" id="dftSub"></div>
+                            <div class="dft-breakdown" id="dftBreakdown"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </main>
 
         <!-- Footer -->

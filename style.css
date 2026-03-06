@@ -757,3 +757,177 @@ input[type="number"] {
     align-items: center;
     gap: 0.3rem;
 }
+
+/* ===========================
+   Tab Switcher
+=========================== */
+.tab-switcher {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 0.35rem;
+    backdrop-filter: blur(12px);
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.7rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: calc(var(--radius-lg) - 6px);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--clr-text-muted);
+    cursor: pointer;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity var(--transition);
+    border-radius: inherit;
+}
+
+.tab-btn:hover {
+    color: var(--clr-text);
+}
+
+.tab-btn.active {
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(167, 139, 250, 0.3);
+}
+
+.tab-btn.active::before {
+    opacity: 1;
+}
+
+.tab-icon,
+.tab-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===========================
+   Teal Button Variant (Panel 2)
+=========================== */
+.btn-teal {
+    background: var(--gradient-cool);
+    box-shadow: 0 4px 24px rgba(45, 212, 191, 0.35);
+}
+
+.btn-teal:hover {
+    box-shadow: 0 8px 32px rgba(45, 212, 191, 0.5);
+}
+
+.btn-teal:active {
+    box-shadow: 0 4px 16px rgba(45, 212, 191, 0.3);
+}
+
+/* ===========================
+   Today Chip
+=========================== */
+.today-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: rgba(45, 212, 191, 0.08);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--clr-teal);
+    text-align: center;
+    min-height: 2.2rem;
+    transition: all var(--transition);
+}
+
+.today-chip:empty {
+    display: none;
+}
+
+/* ===========================
+   DFT Result Card
+=========================== */
+.dft-result-card {
+    background: rgba(45, 212, 191, 0.06);
+    border-color: rgba(45, 212, 191, 0.2);
+}
+
+.dft-result-card::before {
+    background: var(--gradient-cool);
+}
+
+.dft-big-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    background: var(--gradient-cool);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dft-big-number.past {
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.dft-big-number.today {
+    background: linear-gradient(135deg, #facc15, #fb923c);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.dft-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--clr-text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+}
+
+.dft-sub {
+    font-size: 0.85rem;
+    color: var(--clr-text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.dft-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.dft-breakdown-item {
+    padding: 0.3rem 0.8rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--clr-border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--clr-text-muted);
+}
+
+.dft-breakdown-item strong {
+    color: var(--clr-text);
+}
